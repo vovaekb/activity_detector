@@ -26,6 +26,8 @@ There is a set of parameters the node takes:
 - noise -           noise filter for the Octree change detector
 - rad -             radius for RadiusOutlierRemoval noise filtering
 - min_neighbors -   minimum number of neighbors for RadiusOutlierRemoval noise filtering
+
 Add display of type PointCloud2 with topic /activity in rviz.
 Here is the result of activity detection:
+
 ![ScreenShot](https://raw.github.com/vovaekb/activity_detector/master/screenshots/activity_detect_3.png)
