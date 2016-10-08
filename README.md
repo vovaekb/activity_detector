@@ -20,4 +20,12 @@ Run activity_detector node:
 rosrun activity_detector detector_node input:=/camera/depth/points
 ```
 You can specify /camera/depth_registered/points topic for the argument input.
+There is a set of parameters the node takes:
+- fp -              frame rate
+- res -             Octree resolution for the Octree change detector (side length of octree voxels)
+- noise -           noise filter for the Octree change detector
+- rad -             radius for RadiusOutlierRemoval noise filtering
+- min_neighbors -   minimum number of neighbors for RadiusOutlierRemoval noise filtering
 Add display of type PointCloud2 with topic /activity in rviz.
+Here is the result of activity detection:
+![ScreenShot](https://raw.github.com/vovaekb/activity_detector/master/screenshots/activity_detect_3.png)
