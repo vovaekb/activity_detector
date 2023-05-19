@@ -8,6 +8,7 @@
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/filters/radius_outlier_removal.h>
 
+
 typedef pcl::PointXYZRGB PointInT;
 
 ros::Publisher result_pub;
@@ -47,13 +48,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 
     pcl::fromROSMsg(*input, *cloud);
 
-    // Filtering out noise
-//    pcl::StatisticalOutlierRemoval<PointInT> sor;
-//    sor.setInputCloud (cloud);
-//    sor.setMeanK (sor_mean_k); // 50 - default
-//    sor.setStddevMulThresh (sor_stddev_mul_th);
-//    sor.filter (*cloud);
-
     octree->setInputCloud (cloud);
     octree->addPointsFromInputCloud ();
 
@@ -76,7 +70,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
     pcl::removeNaNFromPointCloud(*person_cloud, *person_cloud, mapping);
 
     // Some noise removal procedure
-
     pcl::RadiusOutlierRemoval<PointInT> outrem;
     outrem.setInputCloud(person_cloud);
     outrem.setRadiusSearch(ror_rad);
@@ -97,9 +90,6 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
     result_cloud_msg.header.frame_id = input->header.frame_id;
     result_pub.publish(result_cloud_msg);
 
-
-//    ROS_INFO("Person pose was published\n");
-
     // Switch octree buffers: This resets octree but keeps previous tree structure in memory.
     octree->switchBuffers ();
 }
@@ -113,7 +103,6 @@ int main(int argc, char** argv)
     parseCommandLine();
 
     ros::Subscriber sub = nh.subscribe("input", 1, cloud_cb);
-
     result_pub = nh.advertise<sensor_msgs::PointCloud2>("activity", 1);
 
     octree = new pcl::octree::OctreePointCloudChangeDetector<PointInT> (resolution);
