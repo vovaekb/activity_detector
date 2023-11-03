@@ -2,6 +2,12 @@
 
 ROS package for detecting activity in a 3D scene.
 It uses Octree spatial change detector from PCL. The main idea: if a spatial change is registered in the point cloud, then it is considered as an activity. The activity is seen as completed if no change was detected during 15 seconds.
+
+Algorithm:
+- Removing NaN points from point cloud
+- Detecting spatial changes in point cloud
+- Removing outliers from a PointCloud
+
 ## Usage:
 Run ROS master:
 ```
